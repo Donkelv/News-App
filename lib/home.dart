@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:news/pages/descriptionPage.dart';
-import 'package:provider/provider.dart';
+import 'package:news/pages/category.dart';
 import 'pages/newsList.dart';
 import 'provider/newsClass.dart';
 import 'provider/newsProvider.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -12,20 +12,24 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-final news = NewsModel();
+  final news = NewsModel();
+  String assetTech = "assets/tech.svg";
+  String assetSport = "assets/sport.svg";
   @override
-  void initState() { 
+  void initState() {
     super.initState();
     news.notifyApi(Constant.newsFeed);
     print(news.getCate());
   }
-  void dispose() { 
+
+  void dispose() {
     super.dispose();
     news.dispose();
   }
+
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-   
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xff51143F),
@@ -55,23 +59,23 @@ final news = NewsModel();
             Align(
               alignment: Alignment.topCenter,
               child: Column(
-                
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Padding(
-                      padding: EdgeInsets.only(
-                        top: 5.0,
-                        left: 20.0,
+                    padding: EdgeInsets.only(
+                      top: 5.0,
+                      left: 20.0,
+                    ),
+                    child: Text(
+                      "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
+                      style: TextStyle(
+                        color: Color(0xff733e62),
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.w400,
                       ),
-                      child: Text(
-                        "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
-                        style: TextStyle(
-                          color: Color(0xff733e62),
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),),
+                    ),
+                  ),
                   Padding(
                     padding: EdgeInsets.only(
                       top: 10.0,
@@ -102,27 +106,29 @@ final news = NewsModel();
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               Container(
-                                  color: Colors.transparent,
-                                  width: 50.0,
-                                  height: 50.0,
-                                  child: InkWell(
-                                    onTap: (){
-                                      news.notifyApi(Constant.techFeed);
-                                      print(news.getCate());
-                                      MaterialPageRoute(builder: (BuildContext coontext) => Description());
-                                    },
-                                    child: Material(
-                                      borderRadius: BorderRadius.circular(25.0),
-                                      color: Colors.white,
-                                      elevation: 8,
-                                      child: Icon(
-                                        Icons.account_balance,
-                                        size: 20,
-                                        color: Color(0xff12060C),
-                                      ),
+                                color: Colors.transparent,
+                                width: 50.0,
+                                height: 50.0,
+                                child: InkWell(
+                                  onTap: () {
+                                    news.notifyApi(Constant.politicsFeed);
+                                    Navigator.push(context, MaterialPageRoute(
+                                        builder: (BuildContext coontext) =>
+                                            Category(cat: news.getCate(), title: Constant.politicsTitle,),),);
+                                    
+                                  },
+                                  child: Material(
+                                    borderRadius: BorderRadius.circular(25.0),
+                                    color: Colors.white,
+                                    elevation: 8,
+                                    child: Icon(
+                                      Icons.account_balance,
+                                      size: 20,
+                                      color: Color(0xff12060C),
                                     ),
                                   ),
                                 ),
+                              ),
                               Padding(
                                 padding: EdgeInsets.only(top: 10.0),
                                 child: Text(
@@ -148,14 +154,22 @@ final news = NewsModel();
                                   color: Colors.transparent,
                                   width: 50.0,
                                   height: 50.0,
-                                  child: Material(
-                                    borderRadius: BorderRadius.circular(25.0),
-                                    color: Colors.white,
-                                    elevation: 8,
-                                    child: Icon(
-                                      Icons.satellite,
-                                      size: 20,
-                                      color: Color(0xff12060C),
+                                  child: InkWell(
+                                    onTap: (){
+                                      news.notifyApi(Constant.sportFeed);
+                                    Navigator.push(context, MaterialPageRoute(
+                                        builder: (BuildContext coontext) =>
+                                            Category(cat: news.getCate(), title: Constant.sportTitle,),),);
+                                    },
+                                    child: Material(
+                                      borderRadius: BorderRadius.circular(25.0),
+                                      color: Colors.white,
+                                      elevation: 8,
+                                      child: SvgPicture.asset(
+                                        assetSport,
+                                        color: Color(0xff12060C),
+                                        fit: BoxFit.scaleDown,
+                                      )
                                     ),
                                   ),
                                 ),
@@ -185,14 +199,25 @@ final news = NewsModel();
                                   color: Colors.transparent,
                                   width: 50.0,
                                   height: 50.0,
-                                  child: Material(
-                                    borderRadius: BorderRadius.circular(25.0),
-                                    color: Colors.white,
-                                    elevation: 8,
-                                    child: Icon(
-                                      Icons.satellite,
-                                      size: 20,
-                                      color: Color(0xff12060C),
+                                  child: InkWell(
+                                    onTap: (){
+                                      news.notifyApi(Constant.techFeed);
+                                    Navigator.push(context, MaterialPageRoute(
+                                        builder: (BuildContext coontext) =>
+                                            Category(cat: news.getCate(), title: Constant.techTitle,),),);
+                                    },
+                                    child: Material(
+                                      borderRadius: BorderRadius.circular(25.0),
+                                      color: Colors.white,
+                                      elevation: 8,
+                                      child: SvgPicture.asset(
+                                        
+                                        assetTech,
+                                        color: Color(0xff12060C),
+                                        
+                                        fit: BoxFit.scaleDown,
+                                        
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -214,7 +239,6 @@ final news = NewsModel();
                       ),
                     ),
                   ),
-                 
                 ],
               ),
             ),
@@ -222,36 +246,34 @@ final news = NewsModel();
             //#4d0a3c dark
             //#43002e darkest dark
             //#733e62 light text
-             Padding(
-               padding: const EdgeInsets.only(top: 160.0, left: 0.0, right: 0.0),
-               child: Container(
-                    width: width,
-                    color: Colors.transparent,
-                    child: Material(
-                      elevation: 5.0,
-                      color: Color(0xff43002e),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(35.0),
-                        topRight: Radius.circular(35.0),
-                      ),
-                      child: FutureBuilder<List<News>>(
-                        future: fetchNews(http.Client(), news.getCate()),
-                        builder: (BuildContext context, snapshot) => !snapshot.hasData
-                            ? Center(
-                              child: CircularProgressIndicator(backgroundColor: Colors.transparent,)
-                              )
-                            : NewsList(news: snapshot.data),
-                      ),
-                    ),
+            Padding(
+              padding: const EdgeInsets.only(top: 160.0, left: 0.0, right: 0.0),
+              child: Container(
+                width: width,
+                color: Colors.transparent,
+                child: Material(
+                  elevation: 5.0,
+                  color: Color(0xff43002e),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(35.0),
+                    topRight: Radius.circular(35.0),
                   ),
-             ),
+                  child: FutureBuilder<List<News>>(
+                    future: fetchNews(http.Client(), news.getCate()),
+                    builder: (BuildContext context, snapshot) =>
+                        !snapshot.hasData
+                            ? Center(
+                                child: CircularProgressIndicator(
+                                backgroundColor: Colors.transparent,
+                              ),)
+                            : NewsList(news: snapshot.data),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
-      
     );
-
-   
-    
   }
 }

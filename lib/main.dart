@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:news/home.dart';
-import 'package:news/provider/newsProvider.dart';
-import 'package:provider/provider.dart';
-
 
 void main() {
   runApp(MyApp());
 }
-const MaterialColor theme = MaterialColor(0xff51143F, 
-const <int, Color>{
+
+const MaterialColor theme = MaterialColor(
+  0xff51143F,
+  const <int, Color>{
     50: const Color(0xff51143F),
     100: const Color(0xff51143F),
     200: const Color(0xff51143F),
@@ -19,7 +18,9 @@ const <int, Color>{
     700: const Color(0xff51143F),
     800: const Color(0xff51143F),
     900: const Color(0xff51143F),
-  },);
+  },
+);
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
@@ -27,12 +28,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-        title: 'News App Demo',
-        theme: ThemeData(
+      title: 'News App Demo',
+      theme: ThemeData(
           primarySwatch: theme,
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-            fontFamily: 'Montserrat'),
-        home: Home(),
-          );
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          fontFamily: 'Montserrat'),
+      home: Home(),
+    );
   }
 }

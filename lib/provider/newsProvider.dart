@@ -6,15 +6,22 @@ import 'package:http/http.dart' as http;
 import 'newsClass.dart';
 
 final news = NewsModel();
+
 class Constant {
   static const String key = "46f4bf30a31140f1a304e438a730a1b0";
-  static const newsFeed = "http://newsapi.org/v2/top-headlines?country=us&apiKey=";
-  static const techFeed = "http://newsapi.org/v2/sources?country=us&category=technology&apiKey=";
+  static const newsFeed =
+      "http://newsapi.org/v2/top-headlines?country=us&apiKey=";
+  static const techFeed =
+      "http://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=";
+  static const politicsFeed =
+      "http://newsapi.org/v2/top-headlines?country=us&category=politics&apiKey=";
+  static const sportFeed =
+      "http://newsapi.org/v2/top-headlines?country=us&category=sport&apiKey=";
+  static const techTitle = "Technology";
+  static const politicsTitle = "Politics";
+  static const sportTitle = "Sport";
+
 }
-
-
-
-
 
 Future<List<News>> fetchNews(http.Client client, cate) async {
   String url = cate + Constant.key;
@@ -31,16 +38,13 @@ List<News> parsenews(String responsebody) {
       .toList();
 }
 
-
-class NewsModel with ChangeNotifier{
+class NewsModel with ChangeNotifier {
   String news;
 
-
-  void notifyApi(newsCate){
+  void notifyApi(newsCate) {
     news = newsCate;
     notifyListeners();
   }
 
   String getCate() => news;
-  
 }
