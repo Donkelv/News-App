@@ -21,6 +21,7 @@ class NewsList extends StatelessWidget {
               print(MediaQuery.of(context).size.height);
             },
             child: Material(
+              elevation: 5.0,
               color: Color(0xff51143F),
               borderRadius: BorderRadius.circular(20.0),
               child: Column(

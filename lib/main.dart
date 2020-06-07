@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:news/home.dart';
+import 'package:news/provider/newsProvider.dart';
+import 'package:provider/provider.dart';
 
 
 void main() {
   runApp(MyApp());
 }
-const MaterialColor theme = MaterialColor(0xff43002e, 
+const MaterialColor theme = MaterialColor(0xff51143F, 
 const <int, Color>{
-    50: const Color(0xff43002e),
-    100: const Color(0xff43002e),
-    200: const Color(0xff43002e),
-    300: const Color(0xff43002e),
-    400: const Color(0xff43002e),
-    500: const Color(0xff43002e),
-    600: const Color(0xff43002e),
-    700: const Color(0xff43002e),
-    800: const Color(0xff43002e),
-    900: const Color(0xff43002e),
+    50: const Color(0xff51143F),
+    100: const Color(0xff51143F),
+    200: const Color(0xff51143F),
+    300: const Color(0xff51143F),
+    400: const Color(0xff51143F),
+    500: const Color(0xff51143F),
+    600: const Color(0xff51143F),
+    700: const Color(0xff51143F),
+    800: const Color(0xff51143F),
+    900: const Color(0xff51143F),
   },);
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -27,8 +29,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
         title: 'News App Demo',
         theme: ThemeData(
+          primarySwatch: theme,
             visualDensity: VisualDensity.adaptivePlatformDensity,
             fontFamily: 'Montserrat'),
-        home: Home());
+        home: Home(),
+          );
   }
 }
