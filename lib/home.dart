@@ -266,7 +266,7 @@ class _HomeState extends State<Home> {
                                 child: CircularProgressIndicator(
                                 backgroundColor: Colors.transparent,
                               ),)
-                            : NewsList(news: snapshot.data),
+                            : NewsList(news: snapshot.data, cat: news.getCate()),
                   ),
                 ),
               ),

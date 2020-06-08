@@ -10,13 +10,13 @@ final news = NewsModel();
 class Constant {
   static const String key = "46f4bf30a31140f1a304e438a730a1b0";
   static const newsFeed =
-      "http://newsapi.org/v2/top-headlines?country=us&apiKey=";
+      "http://newsapi.org/v2/top-headlines?language=en&apiKey=";
   static const techFeed =
-      "http://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=";
+      "http://newsapi.org/v2/top-headlines?category=technology&language=en&apiKey=";
   static const politicsFeed =
-      "http://newsapi.org/v2/top-headlines?country=us&category=politics&apiKey=";
+      "http://newsapi.org/v2/top-headlines?category=politics&country=us&apiKey=";
   static const sportFeed =
-      "http://newsapi.org/v2/top-headlines?country=us&category=sport&apiKey=";
+      "http://newsapi.org/v2/top-headlines?category=sport&language=en&apiKey=";
   static const techTitle = "Technology";
   static const politicsTitle = "Politics";
   static const sportTitle = "Sport";
