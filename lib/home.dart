@@ -4,7 +4,6 @@ import 'pages/newsList.dart';
 import 'provider/argClass.dart';
 import 'provider/newsClass.dart';
 import 'provider/newsProvider.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +13,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  //final news = NewsModel();
+
   String assetTech = "assets/tech.svg";
   String assetSport = "assets/sport.svg";
   @override
@@ -152,16 +151,7 @@ class _HomeState extends State<Home> {
                                   child: InkWell(
                                     onTap: () {
                                       newsModel.notifyApi(Constant.sportFeed);
-                                      /* Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (BuildContext coontext) =>
-                                              Category(
-                                            cat: news.getCate(),
-                                            title: Constant.sportTitle,
-                                          ),
-                                        ),
-                                      ); */
+                                      
                                       print(newsModel.getCate());
                                       Navigator.pushNamed(
                                         context,

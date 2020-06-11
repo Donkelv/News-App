@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news/provider/newsClass.dart';
 import 'package:news/provider/newsProvider.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
+
 import 'descriptionPage.dart';
 
 class NewsList extends StatelessWidget {
