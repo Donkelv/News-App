@@ -8,37 +8,47 @@ class Description extends StatefulWidget {
 }
 
 class _DescriptionState extends State<Description> {
-   String url;
+  String url;
   @override
-  void initState() { 
+  void initState() {
     super.initState();
     url = widget.url;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xff51143F),
-        title: Text("Full Article", style: TextStyle(color: Colors.white, fontSize: 19.0, fontWeight: FontWeight.w500,),),
+        title: Text(
+          "Full Article",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 19.0,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
         leading: InkWell(
-          onTap: (){
+          onTap: () {
             Navigator.pop(context);
           },
           child: Center(
-            child: Icon(Icons.arrow_back, color: Colors.white,),
+            child: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
           ),
         ),
       ),
       backgroundColor: Color(0xff51143F),
       body: SafeArea(
-        child: WebviewScaffold(
-          url: url,
-          withZoom: false,
-          allowFileURLs: true,
-          withLocalStorage: true,
-          hidden: true,
-        )
-      ),
+          child: WebviewScaffold(
+        url: url,
+        withZoom: false,
+        allowFileURLs: true,
+        withLocalStorage: true,
+        hidden: true,
+      )),
     );
   }
 }

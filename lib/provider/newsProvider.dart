@@ -20,7 +20,6 @@ class Constant {
   static const techTitle = "Technology";
   static const politicsTitle = "Politics";
   static const sportTitle = "Sport";
-
 }
 
 Future<List<News>> fetchNews(http.Client client, cate) async {
@@ -38,13 +37,11 @@ List<News> parsenews(String responsebody) {
       .toList();
 }
 
-class NewsModel with ChangeNotifier {
+class NewsModel extends ChangeNotifier {
   String news;
-
+  String getCate() => news;
   void notifyApi(newsCate) {
     news = newsCate;
     notifyListeners();
   }
-
-  String getCate() => news;
 }

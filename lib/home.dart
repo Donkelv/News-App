@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:news/pages/category.dart';
 import 'pages/newsList.dart';
+import 'provider/argClass.dart';
 import 'provider/newsClass.dart';
 import 'provider/newsProvider.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -12,24 +14,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final news = NewsModel();
+  //final news = NewsModel();
   String assetTech = "assets/tech.svg";
   String assetSport = "assets/sport.svg";
   @override
-  void initState() {
-    super.initState();
-    news.notifyApi(Constant.newsFeed);
-    print(news.getCate());
-  }
-
-  void dispose() {
-    super.dispose();
-    news.dispose();
-  }
-
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-
+    var feed = Provider.of<List<News>>(context);
+    NewsModel newsModel = Provider.of<NewsModel>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xff51143F),
@@ -111,11 +103,14 @@ class _HomeState extends State<Home> {
                                 height: 50.0,
                                 child: InkWell(
                                   onTap: () {
-                                    news.notifyApi(Constant.politicsFeed);
-                                    Navigator.push(context, MaterialPageRoute(
-                                        builder: (BuildContext coontext) =>
-                                            Category(cat: news.getCate(), title: Constant.politicsTitle,),),);
-                                    
+                                    newsModel.notifyApi(Constant.politicsFeed);
+
+                                    Navigator.pushNamed(
+                                      context,
+                                      CategoryProvider.routeName,
+                                      arguments: Argu(newsModel.getCate(),
+                                          Constant.politicsTitle),
+                                    );
                                   },
                                   child: Material(
                                     borderRadius: BorderRadius.circular(25.0),
@@ -155,11 +150,25 @@ class _HomeState extends State<Home> {
                                   width: 50.0,
                                   height: 50.0,
                                   child: InkWell(
-                                    onTap: (){
-                                      news.notifyApi(Constant.sportFeed);
-                                    Navigator.push(context, MaterialPageRoute(
-                                        builder: (BuildContext coontext) =>
-                                            Category(cat: news.getCate(), title: Constant.sportTitle,),),);
+                                    onTap: () {
+                                      newsModel.notifyApi(Constant.sportFeed);
+                                      /* Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (BuildContext coontext) =>
+                                              Category(
+                                            cat: news.getCate(),
+                                            title: Constant.sportTitle,
+                                          ),
+                                        ),
+                                      ); */
+                                      print(newsModel.getCate());
+                                      Navigator.pushNamed(
+                                        context,
+                                        CategoryProvider.routeName,
+                                        arguments: Argu(newsModel.getCate(),
+                                            Constant.sportTitle),
+                                      );
                                     },
                                     child: Material(
                                       borderRadius: BorderRadius.circular(25.0),
@@ -169,7 +178,7 @@ class _HomeState extends State<Home> {
                                         assetSport,
                                         color: Color(0xff12060C),
                                         fit: BoxFit.scaleDown,
-                                      )
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -200,23 +209,27 @@ class _HomeState extends State<Home> {
                                   width: 50.0,
                                   height: 50.0,
                                   child: InkWell(
-                                    onTap: (){
-                                      news.notifyApi(Constant.techFeed);
-                                    Navigator.push(context, MaterialPageRoute(
-                                        builder: (BuildContext coontext) =>
-                                            Category(cat: news.getCate(), title: Constant.techTitle,),),);
+                                    onTap: () {
+                                      newsModel.notifyApi(Constant.techFeed);
+                                      print(
+                                          "the cat is ${newsModel.getCate()}");
+                                      Navigator.pushNamed(
+                                        context,
+                                        CategoryProvider.routeName,
+                                        arguments: Argu(
+                                          newsModel.getCate(),
+                                          Constant.techTitle,
+                                        ),
+                                      );
                                     },
                                     child: Material(
                                       borderRadius: BorderRadius.circular(25.0),
                                       color: Colors.white,
                                       elevation: 8,
                                       child: SvgPicture.asset(
-                                        
                                         assetTech,
                                         color: Color(0xff12060C),
-                                        
                                         fit: BoxFit.scaleDown,
-                                        
                                       ),
                                     ),
                                   ),
@@ -258,16 +271,7 @@ class _HomeState extends State<Home> {
                     topLeft: Radius.circular(35.0),
                     topRight: Radius.circular(35.0),
                   ),
-                  child: FutureBuilder<List<News>>(
-                    future: fetchNews(http.Client(), news.getCate()),
-                    builder: (BuildContext context, snapshot) =>
-                        !snapshot.hasData
-                            ? Center(
-                                child: CircularProgressIndicator(
-                                backgroundColor: Colors.transparent,
-                              ),)
-                            : NewsList(news: snapshot.data, cat: news.getCate()),
-                  ),
+                  child: NewsList(cat: newsModel.getCate(), feed: feed),
                 ),
               ),
             ),

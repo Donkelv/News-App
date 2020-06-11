@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:news/home.dart';
+import 'package:news/pages/category.dart';
+import 'package:provider/provider.dart';
+import 'package:news/provider/newsProvider.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(MyApp());
@@ -23,9 +27,10 @@ const MaterialColor theme = MaterialColor(
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-
+  final news = NewsModel();
   @override
   Widget build(BuildContext context) {
+    print(news.getCate());
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'News App Demo',
@@ -33,7 +38,26 @@ class MyApp extends StatelessWidget {
           primarySwatch: theme,
           visualDensity: VisualDensity.adaptivePlatformDensity,
           fontFamily: 'Montserrat'),
-      home: Home(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => MultiProvider(
+              providers: [
+                ChangeNotifierProvider(
+                  create: (_) => NewsModel(),
+                ),
+                FutureProvider(
+                  create: (_) => fetchNews(
+                    http.Client(),
+                    Constant.newsFeed,
+                  ).catchError(
+                    (error) => print("$error"),
+                  ),
+                ),
+              ],
+              child: Home(),
+            ),
+        '/category': (context) => CategoryProvider(),
+      },
     );
   }
 }
