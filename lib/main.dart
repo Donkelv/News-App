@@ -27,10 +27,9 @@ const MaterialColor theme = MaterialColor(
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-  final news = NewsModel();
+ 
   @override
   Widget build(BuildContext context) {
-    print(news.getCate());
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'News App Demo',
